@@ -215,15 +215,20 @@ const handleSendMessage = async (
 
     // Jika private chat, tetap harus cek friendship
     if (conversation.type === 'private') {
-      const otherParticipant = await Conversation.findAllParticipants(conversationId);
-      const otherId = otherParticipant.find((p) => p.user_id !== senderId)?.user_id;
+      const allParticipants = await Conversation.findAllParticipantsIncludeDeleted(conversationId);
 
-      if (otherId) {
-        const friendship = await Friendship.findByUsers(senderId, otherId);
-        if (!friendship || friendship.status !== 'accepted') {
-          WsSender.sendError(senderId, 'You cannot send messages to this user.');
-          return;
-        }
+      const otherId = allParticipants.find((p) => p.user_id !== senderId)?.user_id;
+
+      if (!otherId) {
+        WsSender.sendError(senderId, 'Conversation participants not found.');
+        return;
+      }
+
+      const friendship = await Friendship.findByUsers(senderId, otherId);
+
+      if (!friendship || friendship.status !== 'accepted') {
+        WsSender.sendError(senderId, 'You cannot send messages to this user.');
+        return;
       }
     }
 
