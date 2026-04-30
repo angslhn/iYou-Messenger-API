@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    /* --- Projects & Build --- */
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo",
+
+    /* --- Language & Environment --- */
+    "target": "ES2022",
+    "lib": ["ES2022"],
+
+    /* --- Modules (Native ESM) --- */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+
+    /* --- Emit --- */
+    "outDir": "dist",
+    "sourceMap": true,
+    "removeComments": true,
+
+    /* --- Strict Type Checking --- */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* --- Modern Standards --- */
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
