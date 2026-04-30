@@ -243,7 +243,7 @@ const handleSendMessage = async (
 
     await Promise.all(
       allParticipants
-        .filter((p) => p.deleted_at !== null)
+        .filter((p) => p.deleted_at !== null && p.status === 'active')
         .map((p) => Conversation.resetDeletedAt(conversationId, p.user_id)),
     );
   } else {

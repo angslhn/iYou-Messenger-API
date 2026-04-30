@@ -631,7 +631,8 @@ export const findAllParticipants = async (
   const res = await pool.query(
     `SELECT * FROM conversation_participants 
      WHERE conversation_id = $1
-       AND deleted_at IS NULL`,
+       AND deleted_at IS NULL
+       AND status = 'active'`,
     [conversationId],
   );
 

@@ -3,6 +3,7 @@ import ResponseError from '@/utils/response-error.js';
 import * as Generator from '@/helpers/generator.js';
 import * as User from '@/models/user.model.js';
 import * as Friendship from '@/models/friendship.model.js';
+import * as Conversation from '@/models/conversation.model.js';
 import * as WsSender from '@/ws/sender.ws.js';
 
 import type { UserData } from '@/@types/globals.js';
@@ -432,6 +433,15 @@ export const blockUser = async (blockerId: string, targetUserId: string): Promis
     // Blocker sudah jadi requester, cukup update status
     await Friendship.updateStatus(existing.id, 'blocked');
 
+    // Tutup private conversation jika ada
+    const privateConv = await Conversation.findPrivateByUsers(blockerId, targetUserId);
+
+    if (privateConv) {
+      const now = new Date();
+      await Conversation.softDeleteParticipant(blockerId, privateConv.id, now);
+      await Conversation.softDeleteParticipant(targetUserId, privateConv.id, now);
+    }
+
     return;
   }
 
@@ -443,6 +453,15 @@ export const blockUser = async (blockerId: string, targetUserId: string): Promis
     method: 'request',
     status: 'blocked',
   });
+
+  // Tutup private conversation jika ada
+  const privateConv = await Conversation.findPrivateByUsers(blockerId, targetUserId);
+
+  if (privateConv) {
+    const now = new Date();
+    await Conversation.softDeleteParticipant(blockerId, privateConv.id, now);
+    await Conversation.softDeleteParticipant(targetUserId, privateConv.id, now);
+  }
 };
 
 /**
