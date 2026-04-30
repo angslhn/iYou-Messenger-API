@@ -203,7 +203,7 @@ const handleSendMessage = async (
     }
   }
   // ==========================================
-  // SKENARIO 2: GROUP CHAT (Pakai conversationId)
+  // SKENARIO 2: EXISTING CHAT (Private & Group menggunakan conversationId)
   // ==========================================
   else if (conversationId) {
     const conversation = await Conversation.findById(conversationId);
