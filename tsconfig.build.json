@@ -3,7 +3,9 @@
   "compilerOptions": {
     "sourceMap": false,
     "declaration": false,
-    "removeComments": true
+    "removeComments": true,
+    "rootDir": "./src",
+    "ignoreDeprecations": "6.0"
   },
   "exclude": [
     "**/*.test.ts",
