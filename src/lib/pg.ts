@@ -25,8 +25,8 @@ export function getPool(): Pool {
       },
     });
 
-    pool.on('error', (err) => {
-      console.error('Unexpected database error in serverless pool: ', err);
+    pool.on('error', () => {
+      console.info('[SERVER] Unexpected database error in serverless pool');
     });
   }
 
