@@ -4,7 +4,7 @@ import * as Generator from '@/helpers/generator.js';
 import * as User from '@/models/user.model.js';
 import * as Friendship from '@/models/friendship.model.js';
 import * as Conversation from '@/models/conversation.model.js';
-import * as WsSender from '@/ws/sender.ws.js';
+import * as WsSender from '@/websocket/sender.ws.js';
 
 import type { UserData } from '@/@types/globals.js';
 import { getPool } from '@/lib/pg.js';

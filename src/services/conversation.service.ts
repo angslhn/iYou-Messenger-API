@@ -3,7 +3,7 @@ import { getPool } from '@/lib/pg.js';
 import ResponseError from '@/utils/response-error.js';
 
 import * as User from '@/models/user.model.js';
-import * as WsSender from '@/ws/sender.ws.js';
+import * as WsSender from '@/websocket/sender.ws.js';
 import * as Message from '@/models/message.model.js';
 import * as Conversation from '@/models/conversation.model.js';
 import * as Generator from '@/helpers/generator.js';

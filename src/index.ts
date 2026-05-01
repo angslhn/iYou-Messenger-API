@@ -2,9 +2,9 @@ import http from 'http';
 import app from '@/app.js';
 
 import { env } from '@/config/env.js';
-import { initWsServer } from '@/ws/server.ws.js';
+import { initWsServer } from '@/websocket/server.ws.js';
 
-import { startRateLimiterCleanup } from '@/ws/rate-limiter.ws.js';
+import { startRateLimiterCleanup } from '@/websocket/rate-limiter.ws.js';
 import { startStoryCleanupJob } from '@/jobs/story-cleanup.job.js';
 
 // Bungkus Express app ke dalam HTTP server

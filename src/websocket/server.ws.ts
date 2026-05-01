@@ -5,7 +5,7 @@ import { WebSocketServer } from 'ws';
 import { env } from '@/config/env.js';
 
 import * as WsManager from '@/lib/ws.js';
-import * as WsHandler from '@/ws/handler.ws.js';
+import * as WsHandler from '@/websocket/handler.ws.js';
 import * as User from '@/models/user.model.js';
 
 import type { Server } from 'http';

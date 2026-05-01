@@ -1,7 +1,7 @@
 import * as WsManager from '@/lib/ws.js';
-import * as WsSender from '@/ws/sender.ws.js';
+import * as WsSender from '@/websocket/sender.ws.js';
 import * as Generator from '@/helpers/generator.js';
-import * as RateLimiter from '@/ws/rate-limiter.ws.js';
+import * as RateLimiter from '@/websocket/rate-limiter.ws.js';
 
 import * as User from '@/models/user.model.js';
 import * as Friendship from '@/models/friendship.model.js';

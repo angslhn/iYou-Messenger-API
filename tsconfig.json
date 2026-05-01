@@ -11,13 +11,11 @@
     /* --- Modules (Native ESM) --- */
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     },
     "resolveJsonModule": true,
-
-    /* --- Emit --- */
-    "removeComments": true,
 
     /* --- Strict Type Checking --- */
     "strict": true,

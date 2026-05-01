@@ -3,7 +3,7 @@ import ResponseError from '@/utils/response-error.js';
 import * as Story from '@/models/story.model.js';
 import * as Friendship from '@/models/friendship.model.js';
 import * as Generator from '@/helpers/generator.js';
-import * as WsSender from '@/ws/sender.ws.js';
+import * as WsSender from '@/websocket/sender.ws.js';
 
 import type { StoryGroup, StoryViewerData } from '@/models/story.model.js';
 

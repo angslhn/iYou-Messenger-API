@@ -3,10 +3,13 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "noEmit": false,
     "sourceMap": false,
     "declaration": false,
     "removeComments": true,
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "incremental": false,
+    "tsBuildInfoFile": null
   },
   "exclude": [
     "**/*.test.ts",

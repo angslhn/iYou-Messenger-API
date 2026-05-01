@@ -10,7 +10,7 @@ import * as Verification from '@/models/verification.model.js';
 import * as Friendship from '@/models/friendship.model.js';
 import * as Generator from '@/helpers/generator.js';
 import * as Mask from '@/helpers/mask.js';
-import * as WsSender from '@/ws/sender.ws.js';
+import * as WsSender from '@/websocket/sender.ws.js';
 
 import type { UserData } from '@/@types/globals.js';
 
