@@ -110,7 +110,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       title: 'Login Successful',
       message:
         'Your login is successful, now you can use this platform to interact with all your social friends.',
-      redirect: 'home',
+      redirect: 'chat',
     });
   } catch (err) {
     next(err);
