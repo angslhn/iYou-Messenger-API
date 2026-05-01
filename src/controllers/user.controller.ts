@@ -578,7 +578,7 @@ export const deleteAccount = async (
     res.clearCookie(env.AUTH_COOKIE_NAME, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
-      sameSite: env.NODE_ENV === 'production' ? 'lax' : 'strict',
+      sameSite: 'none',
       path: '/',
     });
 

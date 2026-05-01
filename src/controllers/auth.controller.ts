@@ -101,7 +101,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     res.cookie(env.AUTH_COOKIE_NAME, token, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
-      sameSite: env.NODE_ENV === 'production' ? 'lax' : 'strict',
+      sameSite: 'none',
       maxAge: env.AUTH_COOKIE_MAX_AGE,
       path: '/',
     });
@@ -195,7 +195,7 @@ export const logout = async (req: Request, res: Response, next: NextFunction): P
     res.clearCookie(env.AUTH_COOKIE_NAME, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
-      sameSite: env.NODE_ENV === 'production' ? 'lax' : 'strict',
+      sameSite: 'none',
       path: '/',
     });
 
