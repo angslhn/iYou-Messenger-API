@@ -495,7 +495,7 @@ export const updateEmail = async (userId: string, email: string): Promise<string
 
   await sendEmailAccountChanged(user.email, user.username, Mask.email(user.email));
 
-  await sendEmailVerifyCode(user.email, user.username, otp);
+  await sendEmailVerifyCode(user.email, user.username, otp, 'change_email');
 
   return token;
 };
@@ -664,7 +664,7 @@ export const updatePhone = async (userId: string, phone: string): Promise<string
 
   await sendEmailAccountChanged(user.email, user.username, Mask.email(user.email));
 
-  await sendEmailVerifyCode(user.email, user.username, otp);
+  await sendEmailVerifyCode(user.email, user.username, otp, 'change_phone');
 
   return token;
 };
@@ -825,7 +825,7 @@ export const resend = async (email: string, type: 'email_otp' | 'phone_otp'): Pr
     expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
   });
 
-  await sendEmailVerifyCode(user.email, user.username, token);
+  await sendEmailVerifyCode(user.email, user.username, token, 'resend');
 };
 
 /**

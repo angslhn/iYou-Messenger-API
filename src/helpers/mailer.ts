@@ -7,6 +7,8 @@ import {
   accountChangedTemplate,
 } from '@/templates/email.template.js';
 
+export type EmailContext = 'register' | 'resend' | 'change_email' | 'change_phone';
+
 /**
  * Mengirim kode OTP ke email pengguna untuk verifikasi akun.
  *
@@ -19,12 +21,15 @@ export const sendEmailVerifyCode = async (
   email: string,
   username: string,
   otp: string,
+  context: EmailContext
 ): Promise<void> => {
+  const subject = { register: 'Verify Your Account', resend: 'Your New Verification Code', change_email: 'Verify Your New Email', change_phone: 'Verify Your New Phone Number' }[context]
+
   await transporter.sendMail({
     from: `"iYou Messenger" <${env.GMAIL_USER}>`,
     to: email,
-    subject: 'Verify Your Account — iYou Messenger',
-    html: verifyCodeTemplate(username, otp),
+    subject: `${subject} — iYou Messenger`,
+    html: verifyCodeTemplate(username, otp, context),
   });
 };
 

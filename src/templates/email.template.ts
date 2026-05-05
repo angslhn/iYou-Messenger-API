@@ -1,5 +1,7 @@
 import { env } from '@/config/env.js';
 
+import type { EmailContext } from '@/helpers/mailer.js';
+
 /**
  * Format Date ke string yang human-readable untuk email.
  * Menggunakan timezone UTC.
@@ -33,9 +35,14 @@ const yearNow = new Date().getFullYear();
  *
  * @param {string} username - Username penerima
  * @param {string} otp - Kode OTP 6 digit
+ * @param {EmailContext} context - Konteks pengiriman email
  * @returns {string} HTML email
  */
-export const verifyCodeTemplate = (username: string, otp: string): string => {
+export const verifyCodeTemplate = (
+  username: string,
+  otp: string,
+  context: EmailContext = 'register'
+): string => {
   const digits = otp.split('');
 
   const digitCell = (digit: string) => `
@@ -60,6 +67,33 @@ export const verifyCodeTemplate = (username: string, otp: string): string => {
       </table>
     </td>`;
 
+const copy = {
+  register: {
+    title: 'Verify Your Account',
+    subtitle: 'Thanks for signing up! Enter the verification code below to activate your account.',
+    warning: 'Never share this code with anyone. iYou Messenger will never ask for your verification code via call, chat, or email.',
+    footer: "If you didn't create an account with iYou Messenger, you can safely ignore this email. Someone may have entered your email address by mistake.",
+  },
+  resend: {
+    title: 'Your New Verification Code',
+    subtitle: "You requested a new verification code. Use the code below to complete your account verification.",
+    warning: 'Never share this code with anyone. iYou Messenger will never ask for your verification code via call, chat, or email.',
+    footer: "If you didn't request a new code, you can safely ignore this email. Someone may have entered your email address by mistake.",
+  },
+  change_email: {
+    title: 'Verify Your New Email',
+    subtitle: 'We received a request to change your email address. Enter the code below to confirm your new email.',
+    warning: "If you didn't request an email change, please secure your account immediately by changing your password.",
+    footer: "If you didn't request an email change, you can safely ignore this email. Your current email address will remain unchanged.",
+  },
+  change_phone: {
+    title: 'Verify Your New Phone Number',
+    subtitle: 'We received a request to change your phone number. Enter the code below to confirm your new number.',
+    warning: "If you didn't request a phone number change, please secure your account immediately by changing your password.",
+    footer: "If you didn't request a phone number change, you can safely ignore this email. Your current phone number will remain unchanged.",
+  },
+}[context];
+
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -68,7 +102,7 @@ export const verifyCodeTemplate = (username: string, otp: string): string => {
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Verify Your Account — iYou Messenger</title>
+      <title>${copy.title} — iYou Messenger</title>
     </head>
     <body style="margin:0;padding:0;background:#f0f0f0;font-family:'DM Sans','Verdana',sans-serif;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f0f0;padding:40px 0;">
@@ -104,14 +138,14 @@ export const verifyCodeTemplate = (username: string, otp: string): string => {
                   <!-- Title -->
                   <tr>
                     <td style="font-size:22px;font-weight:700;color:#0e0e0e;letter-spacing:-0.5px;line-height:1.25;padding-bottom:20px;">
-                      Verify Your Account
+                      ${copy.title}
                     </td>
                   </tr>
 
                   <!-- Description -->
                   <tr>
                     <td style="font-size:15px;color:#555555;line-height:1.7;padding-bottom:36px;">
-                      Thanks for signing up! Enter the verification code below to activate your account.
+                      ${copy.subtitle}
                       The code is valid for <strong style="color:#0e0e0e;font-weight:600;">15 minutes</strong>.
                     </td>
                   </tr>
@@ -158,8 +192,7 @@ export const verifyCodeTemplate = (username: string, otp: string): string => {
                       <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td style="font-size:13px;color:#888888;line-height:1.6;">
-                            Never share this code with anyone. iYou Messenger will never ask for your
-                            verification code via call, chat, or email.
+                            ${copy.warning}
                           </td>
                         </tr>
                       </table>
@@ -176,8 +209,7 @@ export const verifyCodeTemplate = (username: string, otp: string): string => {
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                     <td style="font-size:12px;color:#bbbbbb;line-height:1.7;">
-                      If you didn't create an account with iYou Messenger, you can safely ignore this email.
-                      Someone may have entered your email address by mistake.
+                      ${copy.footer}
                     </td>
                   </tr>
                   <tr>

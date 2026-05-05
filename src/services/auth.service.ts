@@ -93,7 +93,7 @@ export const register = async (
     );
   }
 
-  await sendEmailVerifyCode(rawData.email, rawData.username, token);
+  await sendEmailVerifyCode(rawData.email, rawData.username, token, 'register');
 };
 
 /**
@@ -258,7 +258,7 @@ export const resend = async (email: string): Promise<void> => {
     expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
   });
 
-  await sendEmailVerifyCode(user.email, user.username, token);
+  await sendEmailVerifyCode(user.email, user.username, token, 'resend');
 };
 
 /**
@@ -327,7 +327,7 @@ export const login = async (rawData: { identifier: string; password: string }): 
         expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
       });
 
-      await sendEmailVerifyCode(user.email, user.username, token);
+      await sendEmailVerifyCode(user.email, user.username, token, 'register');
 
       throw new ResponseError(
         403,
@@ -377,7 +377,7 @@ export const login = async (rawData: { identifier: string; password: string }): 
       expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
     });
 
-    await sendEmailVerifyCode(user.email, user.username, token);
+    await sendEmailVerifyCode(user.email, user.username, token, 'register');
 
     // Lempar error 403 untuk me-redirect aplikasi client ke halaman verifikasi
     throw new ResponseError(
@@ -459,7 +459,7 @@ export const forgotPassword = async (
         expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
       });
 
-      await sendEmailVerifyCode(user.email, user.username, token);
+      await sendEmailVerifyCode(user.email, user.username, token, 'register');
 
       throw new ResponseError(
         403,
@@ -494,7 +494,7 @@ export const forgotPassword = async (
       expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
     });
 
-    await sendEmailVerifyCode(user.email, user.username, token);
+    await sendEmailVerifyCode(user.email, user.username, token, 'register');
 
     // Redirect user ke halaman verifikasi akun
     throw new ResponseError(
