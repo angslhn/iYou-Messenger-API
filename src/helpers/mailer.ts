@@ -21,7 +21,7 @@ export const sendEmailVerifyCode = async (
   otp: string,
 ): Promise<void> => {
   await transporter.sendMail({
-    from: `"iYou Messenger" <${env.SMTP_EMAIL}>`,
+    from: `"iYou Messenger" <${env.GMAIL_USER}>`,
     to: email,
     subject: 'Verify Your Account — iYou Messenger',
     html: verifyCodeTemplate(username, otp),
@@ -42,7 +42,7 @@ export const sendEmailResetPassword = async (
   token: string,
 ): Promise<void> => {
   await transporter.sendMail({
-    from: `"iYou Messenger" <${env.SMTP_EMAIL}>`,
+    from: `"iYou Messenger" <${env.GMAIL_USER}>`,
     to: email,
     subject: 'Reset Your Password — iYou Messenger',
     html: resetPasswordTemplate(username, token),
@@ -63,7 +63,7 @@ export const sendEmailAccountChanged = async (
   maskedOldEmail: string,
 ): Promise<void> => {
   await transporter.sendMail({
-    from: `"iYou Messenger" <${env.SMTP_EMAIL}>`,
+    from: `"iYou Messenger" <${env.GMAIL_USER}>`,
     to: email,
     subject: 'Email Change Request — iYou Messenger',
     html: accountChangedTemplate(username, maskedOldEmail),
