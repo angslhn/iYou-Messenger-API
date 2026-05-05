@@ -4,13 +4,13 @@ import { env } from '@/config/env.js';
 /**
  * Instance transporter Nodemailer yang dikonfigurasi untuk menangani pengiriman email keluar.
  */
-const transporter = nodemailer.createTransport({
+export const transporter = createTransport({
   service: 'gmail',
   auth: {
     type: 'OAuth2',
-    user: process.env.GMAIL_USER,
-    clientId: process.env.GMAIL_CLIENT_ID,
-    clientSecret: process.env.GMAIL_CLIENT_SECRET,
-    refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+    user: env.GMAIL_USER,
+    clientId: env.GMAIL_CLIENT_ID,
+    clientSecret: env.GMAIL_CLIENT_SECRET,
+    refreshToken: env.GMAIL_REFRESH_TOKEN,
   },
 });
