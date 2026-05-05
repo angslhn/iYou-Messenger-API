@@ -13,8 +13,10 @@ DotenvFlow.config({ silent: true });
 export type EnvConfig = {
   readonly PORT: number;
   readonly NODE_ENV: 'development' | 'production' | 'staging' | 'test';
-  readonly SMTP_EMAIL: string;
-  readonly SMTP_PASSWORD: string;
+  readonly GMAIL_USER: string
+  readonly GMAIL_CLIENT_ID: string
+  readonly GMAIL_CLIENT_SECRET: string
+  readonly GMAIL_REFRESH_TOKEN: string
   readonly CLIENT_ORIGIN: string;
   readonly DATABASE_URL: string;
   readonly AUTH_COOKIE_NAME: string;
@@ -62,9 +64,11 @@ export const env: EnvConfig = {
   // Database
   DATABASE_URL: process.env.DATABASE_URL as string,
 
-  // Nodemailer (Gmail SMTP)
-  SMTP_EMAIL: process.env.SMTP_EMAIL as string,
-  SMTP_PASSWORD: process.env.SMTP_PASSWORD as string,
+  // Nodemailer (Gmail OAuth2)
+  GMAIL_USER: process.env.GMAIL_USER as string,
+  GMAIL_CLIENT_ID: process.env.GMAIL_CLIENT_ID as string,
+  GMAIL_CLIENT_SECRET: process.env.GMAIL_CLIENT_SECRET as string,
+  GMAIL_REFRESH_TOKEN: process.env.GMAIL_REFRESH_TOKEN as string,
 
   // JWT & Cookie
   AUTH_COOKIE_NAME: process.env.AUTH_COOKIE_NAME as string,
