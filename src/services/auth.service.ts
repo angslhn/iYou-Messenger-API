@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import ResponseError from '@/utils/response-error.js';
 
 import { env } from '@/config/env.js';
-import { sendEmailResetPassword, sendEmailVerifyCode } from '@/helpers/mailer.js';
+import { emailResetPassword, emailVerifyCode } from '@/helpers/mailer.js';
 
 import * as Mask from '@/helpers/mask.js';
 import * as Generator from '@/helpers/generator.js';
@@ -93,7 +93,7 @@ export const register = async (
     );
   }
 
-  await sendEmailVerifyCode(rawData.email, rawData.username, token, 'register');
+  await emailVerifyCode(rawData.email, rawData.username, token, 'register');
 };
 
 /**
@@ -258,7 +258,7 @@ export const resend = async (email: string): Promise<void> => {
     expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
   });
 
-  await sendEmailVerifyCode(user.email, user.username, token, 'resend');
+  await emailVerifyCode(user.email, user.username, token, 'resend');
 };
 
 /**
@@ -327,7 +327,7 @@ export const login = async (rawData: { identifier: string; password: string }): 
         expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
       });
 
-      await sendEmailVerifyCode(user.email, user.username, token, 'register');
+      await emailVerifyCode(user.email, user.username, token, 'register');
 
       throw new ResponseError(
         403,
@@ -377,7 +377,7 @@ export const login = async (rawData: { identifier: string; password: string }): 
       expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
     });
 
-    await sendEmailVerifyCode(user.email, user.username, token, 'register');
+    await emailVerifyCode(user.email, user.username, token, 'register');
 
     // Lempar error 403 untuk me-redirect aplikasi client ke halaman verifikasi
     throw new ResponseError(
@@ -459,7 +459,7 @@ export const forgotPassword = async (
         expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
       });
 
-      await sendEmailVerifyCode(user.email, user.username, token, 'register');
+      await emailVerifyCode(user.email, user.username, token, 'register');
 
       throw new ResponseError(
         403,
@@ -494,7 +494,7 @@ export const forgotPassword = async (
       expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
     });
 
-    await sendEmailVerifyCode(user.email, user.username, token, 'register');
+    await emailVerifyCode(user.email, user.username, token, 'register');
 
     // Redirect user ke halaman verifikasi akun
     throw new ResponseError(
@@ -572,7 +572,7 @@ export const forgotPassword = async (
 
   // Menentukan metode pengiriman token (Email atau SMS) berdasarkan pola input identifier
   if (isEmail) {
-    await sendEmailResetPassword(user.email, user.username, token);
+    await emailResetPassword(user.email, user.username, token);
   } else {
     // await sendSmsResetPassword(user.email, token);
   }

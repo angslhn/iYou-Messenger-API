@@ -3,7 +3,7 @@ import cloudinary from '@/lib/cloudinary.js';
 import ResponseError from '@/utils/response-error.js';
 
 import { env } from '@/config/env.js';
-import { sendEmailAccountChanged, sendEmailVerifyCode } from '@/helpers/mailer.js';
+import { emailAccountChanged, emailVerifyCode } from '@/helpers/mailer.js';
 
 import * as User from '@/models/user.model.js';
 import * as Verification from '@/models/verification.model.js';
@@ -493,9 +493,9 @@ export const updateEmail = async (userId: string, email: string): Promise<string
     expired_at: expiredAt,
   });
 
-  await sendEmailAccountChanged(user.email, user.username, Mask.email(user.email));
+  await emailAccountChanged(user.email, user.username, Mask.email(user.email));
 
-  await sendEmailVerifyCode(user.email, user.username, otp, 'change_email');
+  await emailVerifyCode(user.email, user.username, otp, 'change_email');
 
   return token;
 };
@@ -662,9 +662,9 @@ export const updatePhone = async (userId: string, phone: string): Promise<string
     expired_at: expiredAt,
   });
 
-  await sendEmailAccountChanged(user.email, user.username, Mask.email(user.email));
+  await emailAccountChanged(user.email, user.username, Mask.email(user.email));
 
-  await sendEmailVerifyCode(user.email, user.username, otp, 'change_phone');
+  await emailVerifyCode(user.email, user.username, otp, 'change_phone');
 
   return token;
 };
@@ -825,7 +825,7 @@ export const resend = async (email: string, type: 'email_otp' | 'phone_otp'): Pr
     expired_at: new Date(Date.now() + env.VERIFICATION_EXPIRES_IN),
   });
 
-  await sendEmailVerifyCode(user.email, user.username, token, 'resend');
+  await emailVerifyCode(user.email, user.username, token, 'resend');
 };
 
 /**
