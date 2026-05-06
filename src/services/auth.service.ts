@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken';
 import ResponseError from '@/utils/response-error.js';
 
 import { env } from '@/config/env.js';
-import { emailResetPassword, emailVerifyCode } from '@/helpers/mailer.js';
+import { emailResetPassword, emailVerifyCode } from '@/lib/mailer.js';
 
 import * as Mask from '@/helpers/mask.js';
 import * as Generator from '@/helpers/generator.js';

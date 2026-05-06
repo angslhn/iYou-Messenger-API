@@ -3,7 +3,7 @@ import cloudinary from '@/lib/cloudinary.js';
 import ResponseError from '@/utils/response-error.js';
 
 import { env } from '@/config/env.js';
-import { emailAccountChanged, emailVerifyCode } from '@/helpers/mailer.js';
+import { emailAccountChanged, emailVerifyCode } from '@/lib/mailer.js';
 
 import * as User from '@/models/user.model.js';
 import * as Verification from '@/models/verification.model.js';
